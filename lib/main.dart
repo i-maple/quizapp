@@ -32,6 +32,24 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> iconsList = [];
 
+  void userAction(bool userPickedAns) {
+    bool correctAnswer = quizBrain.getAnswerText();
+
+    setState(() {
+      if (userPickedAns == correctAnswer) {
+        iconsList.add(
+          Icon(Icons.check, color: Colors.green),
+        );
+      } else {
+        iconsList.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+      quizBrain.nextQuestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,19 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = quizBrain.getAnswerText();
-
-                if (correctAnswer == true) {
-                  print("Yes! Correct");
-                } else {
-                  print("No False");
-                }
-
-                setState(
-                  () {
-                    quizBrain.nextQuestion();
-                  },
-                );
+                userAction(true);
               },
             ),
           ),
@@ -98,29 +104,15 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = quizBrain.getAnswerText();
-
-                if (correctAnswer == false) {
-                  print("Yes! Correct");
-                } else {
-                  print("No False");
-                }
-
-                setState(
-                  () {
-                    quizBrain.nextQuestion();
-                  },
-                );
+                userAction(false);
               },
             ),
           ),
         ),
         Row(
           children: [
-            Expanded(
-              child: Row(
-                children: iconsList,
-              ),
+            Row(
+              children: iconsList,
             )
           ],
         )
