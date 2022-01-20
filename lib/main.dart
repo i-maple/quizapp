@@ -1,4 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:quizzler/questions.dart';
 
 void main() => runApp(Quizzler());
 
@@ -6,6 +11,7 @@ class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
@@ -25,6 +31,17 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> iconsList = [];
+  var i = 0;
+
+  List<Question> questionBank = [
+    Question(q: 'Mt. Everest lies in between India and China', a: false),
+    Question(
+        q: 'Flutter framework is based on C++ programming language', a: false),
+    Question(q: 'This is an app made by flutter expert', a: false),
+    Question(q: 'You can lead a cow down stairs but not up stairs', a: false),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +54,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                '${questionBank[i].questionText}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,7 +78,19 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                var correctAnswer = questionBank[i].answerText;
+
+                if (correctAnswer == true) {
+                  print("Yes! Correct");
+                } else {
+                  print("No False");
+                }
+
+                setState(
+                  () {
+                    i = Random().nextInt(4);
+                  },
+                );
               },
             ),
           ),
@@ -79,12 +108,32 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                var correctAnswer = questionBank[i].answerText;
+
+                if (correctAnswer == false) {
+                  print("Yes! Correct");
+                } else {
+                  print("No False");
+                }
+
+                setState(
+                  () {
+                    i = Random().nextInt(4);
+                  },
+                );
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: [
+            Expanded(
+              child: Row(
+                children: iconsList,
+              ),
+            )
+          ],
+        )
       ],
     );
   }
