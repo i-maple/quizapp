@@ -1,7 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
 
@@ -34,7 +31,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> iconsList = [];
-  var i = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                '${quizBrain.questionBank[i].questionText}',
+                '${quizBrain.getQuestionText()}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -72,7 +68,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = quizBrain.questionBank[i].answerText;
+                var correctAnswer = quizBrain.getAnswerText();
 
                 if (correctAnswer == true) {
                   print("Yes! Correct");
@@ -82,7 +78,7 @@ class _QuizPageState extends State<QuizPage> {
 
                 setState(
                   () {
-                    i++;
+                    quizBrain.nextQuestion();
                   },
                 );
               },
@@ -102,7 +98,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = quizBrain.questionBank[i].answerText;
+                var correctAnswer = quizBrain.getAnswerText();
 
                 if (correctAnswer == false) {
                   print("Yes! Correct");
@@ -112,7 +108,7 @@ class _QuizPageState extends State<QuizPage> {
 
                 setState(
                   () {
-                    i++;
+                    quizBrain.nextQuestion();
                   },
                 );
               },

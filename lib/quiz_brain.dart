@@ -1,11 +1,12 @@
 import 'questions.dart';
 
 class QuizBrain {
-  List<Question> questionBank = [
-    Question( 'Mt. Everest lies in between India and China', false),
-    Question(
-        'Flutter framework is based on C++ programming language', false),
-    Question( 'This is an app made by flutter expert', false),
+  var i = 0;
+
+  List<Question> _questionBank = [
+    Question('Mt. Everest lies in between India and China', false),
+    Question('Flutter framework is based on C++ programming language', false),
+    Question('This is an app made by flutter expert', false),
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -32,4 +33,18 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  void nextQuestion() {
+    if (i < _questionBank.length - 1) {
+      i++;
+    }
+  }
+
+  String getQuestionText() {
+    return _questionBank[i].questionText;
+  }
+
+  bool getAnswerText() {
+    return _questionBank[i].answerText;
+  }
 }
