@@ -3,7 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:quizzler/questions.dart';
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
 
@@ -34,14 +36,6 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> iconsList = [];
   var i = 0;
 
-  List<Question> questionBank = [
-    Question(q: 'Mt. Everest lies in between India and China', a: false),
-    Question(
-        q: 'Flutter framework is based on C++ programming language', a: false),
-    Question(q: 'This is an app made by flutter expert', a: false),
-    Question(q: 'You can lead a cow down stairs but not up stairs', a: false),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                '${questionBank[i].questionText}',
+                '${quizBrain.questionBank[i].questionText}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -78,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = questionBank[i].answerText;
+                var correctAnswer = quizBrain.questionBank[i].answerText;
 
                 if (correctAnswer == true) {
                   print("Yes! Correct");
@@ -88,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
 
                 setState(
                   () {
-                    i = Random().nextInt(4);
+                    i++;
                   },
                 );
               },
@@ -108,7 +102,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                var correctAnswer = questionBank[i].answerText;
+                var correctAnswer = quizBrain.questionBank[i].answerText;
 
                 if (correctAnswer == false) {
                   print("Yes! Correct");
@@ -118,7 +112,7 @@ class _QuizPageState extends State<QuizPage> {
 
                 setState(
                   () {
-                    i = Random().nextInt(4);
+                    i++;
                   },
                 );
               },
